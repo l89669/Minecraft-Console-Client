@@ -227,7 +227,6 @@ namespace MinecraftClient.Protocol
             {
                 string result = "";
                 string json_request = "{\"agent\": { \"name\": \"Minecraft\", \"version\": 1 }, \"username\": \"" + JsonEncode(user) + "\", \"password\": \"" + JsonEncode(pass) + "\", \"clientToken\": \"" + JsonEncode(session.ClientID) + "\" }";
-                // int code = DoHTTPSPost("authserver.mojang.com", "/authenticate", json_request, ref result);
                 int code = DoHTTPSPost("summermc.cc", "/api/yggdrasil/authenticate", json_request, ref result);
                 if (code == 200)
                 {
@@ -237,12 +236,7 @@ namespace MinecraftClient.Protocol
                     }
                     else
                     {
-                        ConsoleIO.WriteLineFormatted(result);
                         Json.JSONData loginResponse = Json.ParseJson(result);
-                        foreach( KeyValuePair<string, Json.JSONData> entry in loginResponse.Properties )
-                        {
-                                Console.WriteLine("Key = {0}, Value = {1}", entry.Key, entry.Value);
-                        }
 
                         if (loginResponse.Properties.ContainsKey("accessToken")
                             && loginResponse.Properties.ContainsKey("selectedProfile")
