@@ -29,7 +29,11 @@ namespace MinecraftClient
                 last--;
             }
 
-            json = json.Substring(first, last);
+            if (first < last) 
+            {
+                json = json.Substring(first, last);
+            }
+            else json = "";
 
             int cursorpos = 0;
             return String2Data(json, ref cursorpos);
